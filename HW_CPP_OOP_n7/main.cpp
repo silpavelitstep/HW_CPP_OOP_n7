@@ -5,27 +5,28 @@
 using namespace std;
 void pause(const char* ch = " ");//pause cross system
 // simple
-void testQuery(int,int);
+void testQueue(int,int);
 int queueArray(int,int);//return time of executing queue base array
 int queueLinkedList(int, int);//base linked list
 int queueLinkedListArray(int, int, int);//base linked list which base on array
-
-
+//
+void testQueueRing(int, int);
+int queueArrayRingLinkedList(int, int);
 int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
-	const int iter = 500000;//count exe add+extract
+	const int iter = 1000000;//count exe add+extract
 	const int range = 10;//random int from 0 to 9
-	//testQuery(iter,range);
-	testQueryRing(iter, range);
+	testQueue(iter,range);
+	testQueueRing(iter, range);
 	
 	
 	pause("End program! ");
 	return 0;
 }
 //
-void testQuery(int iter, int range) {
+void testQueue(int iter, int range) {
 	srand(time('\0'));
 	cout << "middle executing time:\n";
 	
@@ -94,4 +95,14 @@ int queueArrayRingLinkedList(int iter, int range) {
 			qu.extract();
 	}
 	return clock() - startTime;
+}
+void testQueueRing(int iter, int range) {
+	srand(time('\0'));
+	cout << "middle executing time:\n";
+
+	cout << "queueRingLLA: "
+		<< (queueArrayRingLinkedList(iter, range)
+			+ queueArrayRingLinkedList(iter, range)
+			+ queueArrayRingLinkedList(iter, range))/3
+		<< " ms" << endl;
 }

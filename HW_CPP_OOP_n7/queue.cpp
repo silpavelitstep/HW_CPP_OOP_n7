@@ -193,35 +193,11 @@ void QueueLinkedListArray::show(){
 
 	
 }
-int QueueRingLLA::extract() {//take from head
-	int resault = 0;
-	if (head) {//list is not empty
-		//one container only
-		if (head == last) { //00110 or 00010 or 00000_11000
-			if (headPos <= lastPos)
-				resault = head->arr[headPos++];
-			else {
-				resault = 0;//because arr empty then list empty
-				delete head;
-				head = last = 0;
-				lastPos = sizeArr - 1;
-				headPos = 0;
-			}
-		}
-		else {// head != last 00111_11111_10000 
-			if (headPos < sizeArr)
-				resault = head->arr[headPos++];
-			else {//headPos==sizeArr 00000_11111_10000
-				ElemArray* tmp = head; //00000 adress
-				head = head->next;// 11111_10000
-				delete tmp;//del empty container
-				headPos = 0;
-				resault = head->arr[headPos++];
-			}
-		}
-	}
+
+// QueueRingLinkedlist base array
+
+int QueueRingLLA::extract() {
+	int resault = quLLA.extract();
+	quLLA.add(resault);
 	return resault;
 }
-
-//queue ring base linked list(from education)
-

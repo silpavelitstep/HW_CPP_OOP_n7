@@ -48,7 +48,6 @@ public:
 //queue (simple) base linked_list
 //one elem contains int array[100..10 000]
 class QueueLinkedListArray {
-protected:
 	class ElemArray {
 	public:
 		int *arr;//data, any base type
@@ -70,9 +69,12 @@ public:
 	void show();
 };
 //queue ring base linked list
-class QueueRingLLA:public QueueLinkedListArray{
+class QueueRingLLA{
+	QueueLinkedListArray quLLA;//use last class
 public:
-	int extract();
+	int add(int data) { return quLLA.add(data); }//add to end list
+	int extract();//take and dell from head
+	void show() { quLLA.show(); }
 
 };
 #endif // !QUEUE_H
