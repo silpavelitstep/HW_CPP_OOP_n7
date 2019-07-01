@@ -67,6 +67,7 @@ public:
 	int add(int);//add to end list
 	int extract();//take and dell from head
 	void show();
+	bool isEmpty() { return head == 0; }
 };
 //queue ring base linked list
 class QueueRingLLA{
@@ -79,3 +80,21 @@ public:
 };
 #endif // !QUEUE_H
 
+class QueuePriorityLinkedList {
+	class Elem {
+	public:
+		QueueLinkedListArray *quLLA;//inner queue, no prioriy
+		int priority;//2 and 5 priority, 5 is more priority
+		Elem* next;//pointer to next
+		Elem(int);
+		~Elem();
+	};
+	Elem* head;
+public:
+	QueuePriorityLinkedList();
+	~QueuePriorityLinkedList();
+	int add(int priority,int value);//add to end queue 
+	int extract(int pri);// elems with definite priority
+	int extract();//elems with max priority
+	void show();
+};

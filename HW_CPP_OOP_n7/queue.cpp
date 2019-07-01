@@ -55,7 +55,6 @@ QueueLinkedList::~QueueLinkedList() {
 		tmp = head;
 		head = head->next;
 		delete tmp;
-		
 	}
 }
 void QueueLinkedList::add(int i) {
@@ -90,10 +89,10 @@ QueueLinkedListArray::QueueLinkedListArray(int size) {//size=100
 	sizeArr = size;
 	lastPos = sizeArr-1;
 	headPos = 0;
-	//cout << "quLLA add " << (int)this << endl;
+	cout << "quLLA add " << (int)this << endl;
 }
 QueueLinkedListArray::~QueueLinkedListArray() {
-	//cout << "quLLA free " << (int)this << endl;
+	cout << "quLLA free " << (int)this << endl;
 	if (head == 0)
 		return;
 	ElemArray* tmp;
@@ -194,10 +193,108 @@ void QueueLinkedListArray::show(){
 	
 }
 
-// QueueRingLinkedlist base array
-
+// QueueRingLinkedlist base array 
 int QueueRingLLA::extract() {
 	int resault = quLLA.extract();
 	quLLA.add(resault);
 	return resault;
 }
+
+//QueuePriorityLinkedList
+//inner class  - queueLinkedListBaseArray
+QueuePriorityLinkedList::QueuePriorityLinkedList() {
+	cout << "new QueuePriorityLinkedList\n";
+}
+QueuePriorityLinkedList::~QueuePriorityLinkedList() {
+	if (head == 0)
+		return;
+	Elem* tmp;
+	while (head) {
+		tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+	cout << "del QueuePriorityLinkedList\n";
+}
+int QueuePriorityLinkedList::add(int priority, int value) {
+	if (head == 0) {//queue is empty
+		head = new Elem(priority);
+		head->quLLA->add(value);//add to inner queue
+	}
+	else {//queue is not empty
+		Elem* tmp = head;
+		bool bingo=0;
+		//find definite priority until end linked list
+		while (tmp) {//tmp==0 or find priority
+			if (tmp->priority == priority) {
+				bingo = 1;
+				break;
+			}
+			tmp = tmp->next;
+		}
+		if (bingo) {//definite priority present
+			tmp->quLLA->add(value);//add to inner queue
+		}
+		else {//definite priority did not found
+			Elem* tmp = new Elem(priority);
+			tmp->next = head;//was first will second 
+			head = tmp;
+			head->quLLA->add(value);//add to inner queue
+		}
+	}
+	
+	return value;
+}
+QueuePriorityLinkedList::Elem::Elem(int pri) {
+	priority = pri;
+	next = 0;
+	quLLA = new QueueLinkedListArray;//make empty simple queue
+	cout << "new Elem with quLLA\n";
+}
+QueuePriorityLinkedList::Elem::~Elem() {
+	delete quLLA;
+	cout << "del Elem with quLLA\n";
+}
+void QueuePriorityLinkedList::show() {
+	Elem* tmp = head;
+	cout << "QueuePriority:\n";
+	while (tmp) {
+		cout << "pri " << tmp->priority << " : ";
+		tmp->quLLA->show();//show inner queue
+		tmp = tmp->next;
+	}
+	cout << endl;
+}
+int QueuePriorityLinkedList::extract(int pri) {
+	if (head == 0) {//queue is empty
+		return 0;
+	}
+	else {//queue is not empty
+		Elem* tmp = head;
+		bool bingo = 0;
+		//find definite priority until end linked list
+		while (tmp) {//tmp==0 or find priority
+			if (tmp->priority == pri) {
+				bingo = 1;
+				break;
+			}
+			tmp = tmp->next;
+		}
+		if (bingo) {//definite priority present
+			int resault = tmp->quLLA->extract();
+			if(tmp->quLLA->isEmpty())
+
+			return resault;
+			
+		}
+		else {//definite priority did not found
+			return extract();//return max priority
+			//return 0; if need
+		}
+	}
+}
+int QueuePriorityLinkedList::extract() {//max priority
+	
+	return 0;
+}
+
