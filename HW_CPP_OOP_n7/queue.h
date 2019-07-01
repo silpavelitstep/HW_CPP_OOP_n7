@@ -64,7 +64,7 @@ class QueueLinkedListArray {
 public:
 	QueueLinkedListArray(int size=100);
 	~QueueLinkedListArray();
-	void add(int);//add to end list
+	int add(int);//add to end list
 	int extract();//take and dell from head
 	void show();
 };

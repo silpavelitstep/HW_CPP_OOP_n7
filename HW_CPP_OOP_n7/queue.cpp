@@ -90,10 +90,10 @@ QueueLinkedListArray::QueueLinkedListArray(int size) {//size=100
 	sizeArr = size;
 	lastPos = sizeArr-1;
 	headPos = 0;
-	cout << "quLLA add " << (int)this << endl;
+	//cout << "quLLA add " << (int)this << endl;
 }
 QueueLinkedListArray::~QueueLinkedListArray() {
-	cout << "quLLA free " << (int)this << endl;
+	//cout << "quLLA free " << (int)this << endl;
 	if (head == 0)
 		return;
 	ElemArray* tmp;
@@ -106,15 +106,15 @@ QueueLinkedListArray::~QueueLinkedListArray() {
 QueueLinkedListArray::ElemArray::ElemArray(int sizeArr) {
 	if (sizeArr <= 0)
 		sizeArr = 100;
-	cout << "ElemA added " << (int)this << endl;
+	//cout << "ElemA added " << (int)this << endl;
 	arr = new int[sizeArr];
 	next = 0;
 }
 QueueLinkedListArray::ElemArray::~ElemArray() {
-	cout << "del ElemA " << (int)this << endl;
+	//cout << "del ElemA " << (int)this << endl;
 	delete[] arr;
 }
-void QueueLinkedListArray::add(int data) {
+int QueueLinkedListArray::add(int data) {
 	if (lastPos < sizeArr-1) {//array is not full
 		last->arr[++lastPos] = data;
 	}
@@ -132,7 +132,7 @@ void QueueLinkedListArray::add(int data) {
 		lastPos = 0;
 		ea->arr[lastPos] = data;
 	}
-	
+	return data;
 }
 int QueueLinkedListArray::extract() {//take from head
 	int resault = 0;
@@ -163,7 +163,7 @@ int QueueLinkedListArray::extract() {//take from head
 	}
 	return resault;
 }
-void QueueLinkedListArray::show() {
+void QueueLinkedListArray::show(){
 	ElemArray* tmp=head;
 	if (head == 0) return;
 	if (head == last) {// 01100
