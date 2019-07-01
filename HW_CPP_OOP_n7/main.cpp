@@ -4,33 +4,28 @@
 #include <time.h>
 using namespace std;
 void pause(const char* ch = " ");//pause cross system
-void test(int,int);
+// simple
+void testQuery(int,int);
 int queueArray(int,int);//return time of executing queue base array
 int queueLinkedList(int, int);//base linked list
 int queueLinkedListArray(int, int, int);//base linked list which base on array
+
+
 int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
 	const int iter = 500000;//count exe add+extract
 	const int range = 10;//random int from 0 to 9
-	test(iter,range);
-	/*{
-		QueueLinkedListArray quLLA(10);
-		for (int i = 1; i <= 50; i++) {
-			if (rand() % 2)
-				cout << '+' << quLLA.add(rand() % range) << endl;
-			else
-				cout <<'-' <<quLLA.extract() << endl;
-		}
-		
-		pause("End QueueLinkedListArray TEST");
-	}*/
+	//testQuery(iter,range);
+	testQueryRing(iter, range);
+	
 	
 	pause("End program! ");
 	return 0;
 }
-void test(int iter, int range) {
+//
+void testQuery(int iter, int range) {
 	srand(time('\0'));
 	cout << "middle executing time:\n";
 	
@@ -84,6 +79,19 @@ int queueLinkedListArray(int iter, int range, int sizeArr) {
 			quLLA.add(rand() % range);
 		else
 			quLLA.extract();
+	}
+	return clock() - startTime;
+}
+//
+
+int queueArrayRingLinkedList(int iter, int range) {
+	int startTime = clock();
+	QueueRingLLA qu;
+	for (int i = 0; i < iter; i++) {
+		if (rand() % 2)
+			qu.add(rand() % range);
+		else
+			qu.extract();
 	}
 	return clock() - startTime;
 }
