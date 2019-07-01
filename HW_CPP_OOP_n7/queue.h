@@ -20,6 +20,8 @@ public:
 	int getCount();
 	void show();
 };
+//queue (simple) base linked_list
+//one elem contains one int numbers
 class QueueLinkedList {
 	//low effective using memory
 	//Elem: int i(4Byte), next(4Byte x86), effective ~50% 
@@ -44,7 +46,27 @@ public:
 	int extract();//take and dell from head
 };
 //queue (simple) base linked_list
-//one elem contain one int numbers
+//one elem contains int array[100..10 000]
+class QueueLinkedListArray {
+	class ElemArray {
+	public:
+		int *arr;//data, any base type
+		ElemArray* next;//pointer to next elem
+		ElemArray(int);//array is full
+		~ElemArray();//array is empty
 
+	};
+	ElemArray* head;//head of queue
+	ElemArray* last;//end of queue
+	int headPos;//head of queue in array in head container
+	int lastPos;//end of queue in array in last container
+	int sizeArr;//size inner array
+public:
+	QueueLinkedListArray(int size=100);
+	~QueueLinkedListArray();
+	void add(int);//add to end list
+	int extract();//take and dell from head
+	void show();
+};
 #endif // !QUEUE_H
 
