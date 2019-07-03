@@ -16,22 +16,13 @@ int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
-	const int iter = 1000000;//count exe add+extract
+	const int iter = 500000;//count exe add+extract
 	const int range = 10;//random int from 0 to 9
 	//testQueue(iter,range);
 	//testQueueRing(iter, range);
+	
 	{
 		QueuePriorityLinkedList quPriLL;
-		quPriLL.add(0, 5);
-		quPriLL.add(0, 7);
-		quPriLL.add(1, 15);
-		quPriLL.add(1, 17);
-		
-		quPriLL.show();
-		cout << '@' << quPriLL.extract(0) << endl;
-		cout << '@' << quPriLL.extract(0) << endl;
-		cout << '@' << quPriLL.extract(0) << endl;
-		cout << '@' << quPriLL.extract(0) << endl;
 		
 		quPriLL.show();
 	}
