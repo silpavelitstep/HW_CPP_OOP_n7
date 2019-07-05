@@ -197,7 +197,7 @@ int QueueRingLLA::extract() {
 //QueuePriorityLinkedList
 //inner class  - queueLinkedListBaseArray
 QueuePriorityLinkedList::QueuePriorityLinkedList() {
-	cout << "new QueuePriorityLinkedList\n";
+	//cout << "new QueuePriorityLinkedList\n";
 }
 QueuePriorityLinkedList::~QueuePriorityLinkedList() {
 	
@@ -207,7 +207,7 @@ QueuePriorityLinkedList::~QueuePriorityLinkedList() {
 		head = head->next;
 		delete tmp;
 	}
-	cout << "del QueuePriorityLinkedList\n";
+	//cout << "del QueuePriorityLinkedList\n";
 }
 int QueuePriorityLinkedList::add(int priority, int value) {
 	if (head == 0) {//queue is empty
@@ -242,11 +242,11 @@ QueuePriorityLinkedList::Elem::Elem(int pri) {
 	priority = pri;
 	next = 0;
 	quLLA = new QueueLinkedListArray;//make empty simple queue
-	cout << "new Elem with quLLA\n";
+	//cout << "new Elem with quLLA\n";
 }
 QueuePriorityLinkedList::Elem::~Elem() {
 	delete quLLA;
-	cout << "del Elem with quLLA\n";
+	//cout << "del Elem with quLLA\n";
 }
 void QueuePriorityLinkedList::show() {
 	Elem* tmp = head;
@@ -280,7 +280,7 @@ int QueuePriorityLinkedList::extract(int pri) {
 		if (bingo) {//found queue with definite priority
 			int resault= tmp->quLLA->extract();
 			if (tmp->quLLA->isEmpty()) {//empty inner queue after extract
-				Elem* buf;
+				
 				if (tmp == head) {//head elem
 					head = tmp->next;
 				}
@@ -301,30 +301,29 @@ int QueuePriorityLinkedList::extract() {//max priority
 		return 0;
 	}
 	else {//queue is not empty
-		Elem* tmp = head;
-		Elem* preTmp = 0;//previous of tmp
-		Elem* maxPriPtr=head;//pointer to elem with max priority
-		while (tmp) {//find elem(simple queue) with max priority while tmp!=0
-			if (tmp->priority > maxPriPtr->priority)
-				maxPriPtr = tmp;
-			preTmp = tmp;//next previous
-			tmp = tmp->next;//next tmp
+		Elem* maxPriorElem = head;//pointer to elem with max priority
+		Elem* currentElem = head;
+		Elem* prevElem = 0;
+		while (true) {// go from elem to elem until last elem
+			if (currentElem->priority > maxPriorElem->priority)
+				maxPriorElem = currentElem;//save max priority elem
+			if (currentElem->next == 0)//current elem is last
+				break;//for donnot calculate two next lines
+			prevElem = currentElem;
+			currentElem = currentElem->next;
 		}
-		//found or not found
-		int resault = maxPriPtr->quLLA->extract();
-		if (maxPriPtr->quLLA->isEmpty()) {//empty inner queue after extract
-			Elem* buf;
-			if (maxPriPtr == head) {//head elem
-				head = preTmp->next;
-			}
-			else {
-				preTmp->next = tmp->next;
-			}
-			delete tmp;
+		int resault;//for return
+		resault = maxPriorElem->quLLA->extract();
+		if (maxPriorElem->quLLA->isEmpty()) {// if inner queue is empty
+			Elem* elemForDel = maxPriorElem;
+			if (maxPriorElem == head)				
+				head = head->next;
+			else				
+				prevElem->next = maxPriorElem;
+			//del the queue
+			delete elemForDel;
 		}
 		return resault;
-
 	}
-		
 }
 

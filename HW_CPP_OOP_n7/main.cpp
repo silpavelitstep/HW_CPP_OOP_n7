@@ -12,20 +12,36 @@ int queueLinkedListArray(int, int, int);//base linked list which base on array
 //
 void testQueueRing(int, int);
 int queueArrayRingLinkedList(int, int);
+int queuePriority(int, int);
+void testQueuePriority(int, int);
 int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
-	const int iter = 500000;//count exe add+extract
+	const int iter = 500;//count exe add+extract
 	const int range = 10;//random int from 0 to 9
 	//testQueue(iter,range);
 	//testQueueRing(iter, range);
-	
+	testQueuePriority(iter, range);
+	/*
 	{
 		QueuePriorityLinkedList quPriLL;
-		
+		quPriLL.add(0, 1);
+		quPriLL.add(1, 11);
+		quPriLL.add(2, 21);
+		quPriLL.add(1, 12);
 		quPriLL.show();
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		cout << '>' << quPriLL.extract() << endl;
+		quPriLL.show();
+
 	}
+	*/
 	
 	
 	pause("End program! ");
@@ -110,5 +126,32 @@ void testQueueRing(int iter, int range) {
 		<< (queueArrayRingLinkedList(iter, range)
 			+ queueArrayRingLinkedList(iter, range)
 			+ queueArrayRingLinkedList(iter, range))/3
+		<< " ms" << endl;
+}
+int queuePriority(int iter, int range) {
+	int startTime = clock();
+	QueuePriorityLinkedList quPLL;
+	for (int i = 0; i < iter; i++) {
+		if (rand() % 2) {
+			quPLL.add(rand() % range, rand() % range);
+		}
+		else {
+			if (rand() % 2) {
+				quPLL.extract(rand() % range);
+			}
+			else {
+				//quPLL.extract();
+			}
+		}
+	}
+	return clock() - startTime;
+}
+void testQueuePriority(int iter, int range) {
+	srand(time('\0'));
+	cout << "middle executing time:\n";
+	cout << "queuePriority: "
+		<< (queuePriority(iter, range) 
+			+ queuePriority(iter, range) 
+			 + queuePriority(iter, range)) / 3
 		<< " ms" << endl;
 }
