@@ -19,7 +19,7 @@ int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
-	const int iter = 500000;//count exe add+extract
+	const int iter = 5000000;//count exe add+extract
 	const int range = 100;//random int from 0 to 9
 	{
 		//testQueue(iter, range);
@@ -116,8 +116,8 @@ int queuePriority(int iter, int range) {
 	QueuePri qupri;
 	int pri;
 	for (int i = 0; i < iter; i++) {
-		if (rand() % 3) {
-			pri = rand() % range;
+		if (rand() % 2) {
+			pri = rand() % 10;
 			//cout << '+' << qupri.add(rand() % range, pri) << endl;
 			qupri.add(rand() % range, pri);
 		}

@@ -358,10 +358,14 @@ QueuePri::Queue::~Queue() {
 }
 void QueuePri::Queue::delAll() {
 	Queue* ptmp;
+	
 	while (head) {
 		ptmp = head;
 		delete ptmp;
+		
 	}
+	
+
 	//cout << "\t\tdell All head=== " << (int)head << endl;
 }
 void QueuePri::show() {
