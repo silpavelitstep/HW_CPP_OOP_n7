@@ -304,6 +304,97 @@ int QueuePriorityLinkedList::extract(int pri) {
 	}
 }
 int QueuePriorityLinkedList::extract() {//max priority
-	
+	return 0;
 }
+////////
+QueuePri::Queue* QueuePri::head;//static
+QueuePri::QueuePri() {
+	head = 0;
+	cout << "new QueuePri: " << (int)this << endl;
+}
+QueuePri::~QueuePri() {
+	Queue::delAll();//del all queues
+	cout << "\tfree QueuePri: " << (int)this << endl;
+}
+int QueuePri::add(int value, int pri) {
+	//find priority equals 'pri'
+	Queue* pTmp = head;
+	bool isPri=false;
+	while (pTmp ) {
+		if (pri == pTmp->pri) {
+			isPri = true;
+			break;
+		}
+		pTmp = pTmp->next;//last pTmp==0;
+	}
+	if (isPri) {
+		pTmp->queue->add(value);
+	}
+	else {//head==0 OR pTmp==0
+		pTmp = head;//save head(first) queue
+		head = new Queue(pri);//new queue with priority 'pri'
+		head->queue->add(value);
+		head->next = pTmp;
+	}
 
+	return value;
+}
+QueuePri::Queue::Queue(int pri) {
+	queue = new QueueLinkedListArray;
+	this->pri = pri;
+	if (head == 0)
+		prev = next = 0;
+	
+	//---
+	cout << "new Queue: " << (int)this << endl;
+}
+QueuePri::Queue::~Queue() {
+	delete queue;
+	if (prev==0)
+		head = next;
+	else
+		prev->next = next;
+	cout << "\tfree Queue: " << (int)this << endl;
+}
+void QueuePri::Queue::delAll() {
+	Queue* ptmp;
+	while (head) {
+		ptmp = head;
+		delete ptmp;
+	}
+	cout << "\t\tdell All head=== " << (int)head << endl;
+}
+void QueuePri::show() {
+	Queue* pTmp=head;
+	cout << "----------\n";
+	while (pTmp) {
+		cout << "pri " << pTmp->pri << " : ";
+		pTmp->queue->show();
+		pTmp = pTmp->next;
+	}
+	if (head == 0)
+		cout << "[empty priority queue]\n";
+	cout << "----------\n";
+}
+int QueuePri::extract() {
+	int resault = -1;
+	if (head) {
+		//find queue with max priority
+		Queue* pTmp = head;
+		Queue* pMaxPri = head;
+		bool isPri = false;
+		while (pTmp) {
+			if (pMaxPri->pri <  pTmp->pri) {
+				pMaxPri = pTmp;
+			}
+			pTmp = pTmp->next;//last pTmp==0;
+		}
+		//then
+		resault = pMaxPri->queue->extract();
+		if (pMaxPri->queue->isEmpty()) {//take last value with max priority
+			delete pMaxPri;//almost smart pointer
+		}
+		
+	}
+	return resault;
+}

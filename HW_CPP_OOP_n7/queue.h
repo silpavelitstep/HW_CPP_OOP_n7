@@ -97,5 +97,26 @@ public:
 	int extract();//elems with max priority
 	void show();
 };
+
+class QueuePri {//base double linked list
+	class Queue {
+	public:
+		QueueLinkedListArray* queue;//inner queue, no priority
+		Queue* prev;//previous queue
+		Queue* next;//next queue
+		int pri;//priority
+		Queue(int pri);
+		~Queue();
+		static void delAll();
+	};
+	static Queue* head;
+public:
+	QueuePri();
+	~QueuePri();
+	int add(int value, int pri);
+	void show();
+	int extract();
+};
+
 #endif // !QUEUE_H
 

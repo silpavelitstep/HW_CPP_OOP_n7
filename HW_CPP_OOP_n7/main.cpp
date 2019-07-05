@@ -20,12 +20,24 @@ int main() {
 	//using random generation from 0 to 1000
 	//methods 'add' and 'extract' using random too. 
 	const int iter = 500;//count exe add+extract
-	const int range = 10;//random int from 0 to 9
+	const int range = 100;//random int from 0 to 9
 	//testQueue(iter,range);
 	//testQueueRing(iter, range);
 	//testQueuePriority(iter, range);
-	
-	
+	{
+		QueuePri qupri;
+		int pri;
+		for (int i = 0; i < 100; i++) {
+			if (rand() % 3) {
+				pri = rand() % 3;
+				cout << '+' << qupri.add(rand() % 10 + pri * 10, pri) << endl;
+			}
+			else {
+				qupri.show();
+				cout << "-" << qupri.extract() << endl;
+			}
+		}
+	}
 	
 	
 	
@@ -117,20 +129,21 @@ void testQueueRing(int iter, int range) {
 }
 int queuePriority(int iter, int range) {
 	int startTime = clock();
-	QueuePriorityLinkedList quPLL;
-	for (int i = 0; i < iter; i++) {
-		if (rand() % 2) {
-			quPLL.add(rand() % range, rand() % range);
+	QueuePri qupri;
+	int pri;
+	for (int i = 0; i < 100; i++) {
+		if (rand() % 3) {
+			pri = rand() % 3;
+			cout << '+' << qupri.add(rand() % 10 + pri * 10, pri) << endl;
 		}
 		else {
-			if (rand() % 2) {
-				quPLL.extract(rand() % range);
-			}
-			else {
-				//quPLL.extract();
-			}
+			qupri.show();
+			cout << "-" << qupri.extract() << endl;
 		}
 	}
+	
+
+
 	return clock() - startTime;
 }
 void testQueuePriority(int iter, int range) {
