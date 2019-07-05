@@ -25,19 +25,7 @@ int main() {
 	//testQueueRing(iter, range);
 	//testQueuePriority(iter, range);
 	
-	{
-		QueuePriorityLinkedList quPriLL;
-		for (int i = 0; i < 200; i++) {
-			if (rand() % 2) {
-				cout << '+' << quPriLL.add(rand()%100, 5) << endl;
-				
-			}
-			else
-				cout <<'-'<< quPriLL.extract() << endl;
-		}
-		
-
-	}
+	
 	
 	
 	
