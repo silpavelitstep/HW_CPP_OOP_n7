@@ -14,6 +14,7 @@ void testQueueRing(int, int);
 int queueArrayRingLinkedList(int, int);
 int queuePriority(int, int);
 void testQueuePriority(int, int);
+
 int main() {
 	// max 500 000 int numbers using for test
 	//using random generation from 0 to 1000
@@ -22,26 +23,27 @@ int main() {
 	const int range = 10;//random int from 0 to 9
 	//testQueue(iter,range);
 	//testQueueRing(iter, range);
-	testQueuePriority(iter, range);
-	/*
+	//testQueuePriority(iter, range);
+	
 	{
 		QueuePriorityLinkedList quPriLL;
-		quPriLL.add(0, 1);
-		quPriLL.add(1, 11);
-		quPriLL.add(2, 21);
-		quPriLL.add(1, 12);
-		quPriLL.show();
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		cout << '>' << quPriLL.extract() << endl;
-		quPriLL.show();
+		for (int i = 0; i < 20; i++) {
+			if (rand() % 2) {
+				int j = rand() % 2;
+				
+				cout << "j=" << j << endl;
+				cout << '+' << quPriLL.add(j, 5) << endl;
+				
+			}
+			else
+				cout <<'-'<< quPriLL.extract() << endl;
+		}
+		
 
 	}
-	*/
+	
+	
+	
 	
 	
 	pause("End program! ");

@@ -197,6 +197,7 @@ int QueueRingLLA::extract() {
 //QueuePriorityLinkedList
 //inner class  - queueLinkedListBaseArray
 QueuePriorityLinkedList::QueuePriorityLinkedList() {
+	head = 0;
 	//cout << "new QueuePriorityLinkedList\n";
 }
 QueuePriorityLinkedList::~QueuePriorityLinkedList() {
@@ -219,17 +220,22 @@ int QueuePriorityLinkedList::add(int priority, int value) {
 		bool bingo=0;
 		//find definite priority until end linked list
 		while (tmp) {//tmp==0 or find priority
+			
 			if (tmp->priority == priority) {
 				bingo = 1;
 				break;
 			}
+			
 			tmp = tmp->next;
+			
 		}
 		if (bingo) {//definite priority present
 			tmp->quLLA->add(value);//add to inner queue
+			
 		}
 		else {//definite priority did not found
 			Elem* tmp = new Elem(priority);
+			//cout << "\t\tin add not bingo tmp=" << (int)(tmp) << endl;
 			tmp->next = head;//was first will second 
 			head = tmp;
 			head->quLLA->add(value);//add to inner queue
@@ -242,11 +248,11 @@ QueuePriorityLinkedList::Elem::Elem(int pri) {
 	priority = pri;
 	next = 0;
 	quLLA = new QueueLinkedListArray;//make empty simple queue
-	//cout << "new Elem with quLLA\n";
+	cout << "new Elem with quLLA\n";
 }
 QueuePriorityLinkedList::Elem::~Elem() {
 	delete quLLA;
-	//cout << "del Elem with quLLA\n";
+	cout << "del Elem with quLLA\n";
 }
 void QueuePriorityLinkedList::show() {
 	Elem* tmp = head;
@@ -303,6 +309,7 @@ int QueuePriorityLinkedList::extract() {//max priority
 	else {//queue is not empty
 		Elem* maxPriorElem = head;//pointer to elem with max priority
 		Elem* currentElem = head;
+		
 		Elem* prevElem = 0;
 		while (true) {// go from elem to elem until last elem
 			if (currentElem->priority > maxPriorElem->priority)
@@ -314,14 +321,18 @@ int QueuePriorityLinkedList::extract() {//max priority
 		}
 		int resault;//for return
 		resault = maxPriorElem->quLLA->extract();
+		
 		if (maxPriorElem->quLLA->isEmpty()) {// if inner queue is empty
 			Elem* elemForDel = maxPriorElem;
-			if (maxPriorElem == head)				
+			if (maxPriorElem == head) {
 				head = head->next;
+				
+			}
 			else				
-				prevElem->next = maxPriorElem;
+				prevElem->next = maxPriorElem->next;//<---------------------
 			//del the queue
 			delete elemForDel;
+			
 		}
 		return resault;
 	}
