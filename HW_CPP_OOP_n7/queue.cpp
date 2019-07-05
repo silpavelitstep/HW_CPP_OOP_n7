@@ -206,6 +206,7 @@ QueuePriorityLinkedList::~QueuePriorityLinkedList() {
 	while (head) {
 		tmp = head;
 		head = head->next;
+		
 		delete tmp;
 	}
 	//cout << "del QueuePriorityLinkedList\n";
@@ -213,6 +214,7 @@ QueuePriorityLinkedList::~QueuePriorityLinkedList() {
 int QueuePriorityLinkedList::add(int priority, int value) {
 	if (head == 0) {//queue is empty
 		head = new Elem(priority);
+		
 		head->quLLA->add(value);//add to inner queue
 	}
 	else {//queue is not empty
@@ -220,12 +222,10 @@ int QueuePriorityLinkedList::add(int priority, int value) {
 		bool bingo=0;
 		//find definite priority until end linked list
 		while (tmp) {//tmp==0 or find priority
-			
 			if (tmp->priority == priority) {
 				bingo = 1;
 				break;
 			}
-			
 			tmp = tmp->next;
 			
 		}
@@ -235,8 +235,9 @@ int QueuePriorityLinkedList::add(int priority, int value) {
 		}
 		else {//definite priority did not found
 			Elem* tmp = new Elem(priority);
+			
 			//cout << "\t\tin add not bingo tmp=" << (int)(tmp) << endl;
-			tmp->next = head;//was first will second 
+			tmp->next = head;//was first will second
 			head = tmp;
 			head->quLLA->add(value);//add to inner queue
 		}
@@ -248,11 +249,11 @@ QueuePriorityLinkedList::Elem::Elem(int pri) {
 	priority = pri;
 	next = 0;
 	quLLA = new QueueLinkedListArray;//make empty simple queue
-	cout << "new Elem with quLLA\n";
+	//cout << "new Elem with quLLA\n";
 }
 QueuePriorityLinkedList::Elem::~Elem() {
 	delete quLLA;
-	cout << "del Elem with quLLA\n";
+	//cout << "del Elem with quLLA\n";
 }
 void QueuePriorityLinkedList::show() {
 	Elem* tmp = head;
@@ -309,7 +310,6 @@ int QueuePriorityLinkedList::extract() {//max priority
 	else {//queue is not empty
 		Elem* maxPriorElem = head;//pointer to elem with max priority
 		Elem* currentElem = head;
-		
 		Elem* prevElem = 0;
 		while (true) {// go from elem to elem until last elem
 			if (currentElem->priority > maxPriorElem->priority)
@@ -326,7 +326,6 @@ int QueuePriorityLinkedList::extract() {//max priority
 			Elem* elemForDel = maxPriorElem;
 			if (maxPriorElem == head) {
 				head = head->next;
-				
 			}
 			else				
 				prevElem->next = maxPriorElem->next;//<---------------------

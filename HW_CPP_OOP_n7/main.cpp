@@ -29,10 +29,7 @@ int main() {
 		QueuePriorityLinkedList quPriLL;
 		for (int i = 0; i < 20; i++) {
 			if (rand() % 2) {
-				int j = rand() % 2;
-				
-				cout << "j=" << j << endl;
-				cout << '+' << quPriLL.add(j, 5) << endl;
+				cout << '+' << quPriLL.add(rand()%10, 5) << endl;
 				
 			}
 			else
