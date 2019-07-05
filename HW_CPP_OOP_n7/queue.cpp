@@ -310,11 +310,11 @@ int QueuePriorityLinkedList::extract() {//max priority
 QueuePri::Queue* QueuePri::head;//static
 QueuePri::QueuePri() {
 	head = 0;
-	cout << "new QueuePri: " << (int)this << endl;
+	//cout << "new QueuePri: " << (int)this << endl;
 }
 QueuePri::~QueuePri() {
 	Queue::delAll();//del all queues
-	cout << "\tfree QueuePri: " << (int)this << endl;
+	//cout << "\tfree QueuePri: " << (int)this << endl;
 }
 int QueuePri::add(int value, int pri) {
 	//find priority equals 'pri'
@@ -346,7 +346,7 @@ QueuePri::Queue::Queue(int pri) {
 		prev = next = 0;
 	
 	//---
-	cout << "new Queue: " << (int)this << endl;
+	//cout << "new Queue: " << (int)this << endl;
 }
 QueuePri::Queue::~Queue() {
 	delete queue;
@@ -354,7 +354,7 @@ QueuePri::Queue::~Queue() {
 		head = next;
 	else
 		prev->next = next;
-	cout << "\tfree Queue: " << (int)this << endl;
+	//cout << "\tfree Queue: " << (int)this << endl;
 }
 void QueuePri::Queue::delAll() {
 	Queue* ptmp;
@@ -362,7 +362,7 @@ void QueuePri::Queue::delAll() {
 		ptmp = head;
 		delete ptmp;
 	}
-	cout << "\t\tdell All head=== " << (int)head << endl;
+	//cout << "\t\tdell All head=== " << (int)head << endl;
 }
 void QueuePri::show() {
 	Queue* pTmp=head;
