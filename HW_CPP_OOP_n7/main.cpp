@@ -27,9 +27,9 @@ int main() {
 	
 	{
 		QueuePriorityLinkedList quPriLL;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 200; i++) {
 			if (rand() % 2) {
-				cout << '+' << quPriLL.add(rand()%10, 5) << endl;
+				cout << '+' << quPriLL.add(rand()%100, 5) << endl;
 				
 			}
 			else

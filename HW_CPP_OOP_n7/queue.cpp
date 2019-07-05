@@ -304,36 +304,6 @@ int QueuePriorityLinkedList::extract(int pri) {
 	}
 }
 int QueuePriorityLinkedList::extract() {//max priority
-	if (head == 0) {//queue is empty
-		return 0;
-	}
-	else {//queue is not empty
-		Elem* maxPriorElem = head;//pointer to elem with max priority
-		Elem* currentElem = head;
-		Elem* prevElem = 0;
-		while (true) {// go from elem to elem until last elem
-			if (currentElem->priority > maxPriorElem->priority)
-				maxPriorElem = currentElem;//save max priority elem
-			if (currentElem->next == 0)//current elem is last
-				break;//for donnot calculate two next lines
-			prevElem = currentElem;
-			currentElem = currentElem->next;
-		}
-		int resault;//for return
-		resault = maxPriorElem->quLLA->extract();
-		
-		if (maxPriorElem->quLLA->isEmpty()) {// if inner queue is empty
-			Elem* elemForDel = maxPriorElem;
-			if (maxPriorElem == head) {
-				head = head->next;
-			}
-			else				
-				prevElem->next = maxPriorElem->next;//<---------------------
-			//del the queue
-			delete elemForDel;
-			
-		}
-		return resault;
-	}
+	
 }
 
