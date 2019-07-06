@@ -1,5 +1,5 @@
 #include "queue.h"
-//#include "stack.h"
+#include "stack.h"
 #include <iostream>
 #include <time.h>
 using namespace std;
@@ -14,6 +14,8 @@ void testQueueRing(int, int);
 int queueArrayRingLinkedList(int, int);
 int queuePriority(int, int);
 void testQueuePriority(int, int);
+void testStack(int, int);
+int stack(int, int);
 
 int main() {
 	// max 500 000 int numbers using for test
@@ -22,9 +24,12 @@ int main() {
 	const int iter = 5000000;//count exe add+extract
 	const int range = 100;//random int from 0 to 9
 	{
-		//testQueue(iter, range);
+		testQueue(iter, range);
 		//testQueueRing(iter, range);
-		//testQueuePriority(iter, range);
+		testQueuePriority(iter, range);
+		testStack(iter, range);
+		
+		
 	}
 	
 	pause("End program! ");
@@ -139,5 +144,27 @@ void testQueuePriority(int iter, int range) {
 		<< (queuePriority(iter, range) 
 			+ queuePriority(iter, range) 
 			 + queuePriority(iter, range)) / 3
+		<< " ms" << endl;
+}
+//
+int stack(int iter, int range) {
+	int startTime = clock();
+	Stack st(iter);
+	for (int ir = 1; ir <= iter; ir++) {
+		if (rand() % 2)
+			st.push(rand() % range);
+		else
+			st.pop();
+	}
+	//st.show();
+	return clock() - startTime;
+}
+void testStack(int iter, int range) {
+	srand(time('\0'));
+	cout << "middle executing time:\n";
+	cout << "Stack: "
+		<< (stack(iter, range)
+			+ stack(iter, range)
+			 + stack(iter, range)) / 3
 		<< " ms" << endl;
 }
