@@ -349,11 +349,14 @@ QueuePri::Queue::Queue(int pri) {
 	//cout << "new Queue: " << (int)this << endl;
 }
 QueuePri::Queue::~Queue() {
-	delete queue;
-	if (prev==0)
-		head = next;
+	if (prev)
+		prev->next = next;//prev != 0
 	else
-		prev->next = next;
+		head = next;
+	if(next)
+		next->prev = prev;//next != 0
+	delete queue;
+	
 	//cout << "\tfree Queue: " << (int)this << endl;
 }
 void QueuePri::Queue::delAll() {
@@ -396,7 +399,7 @@ int QueuePri::extract() {
 		//then
 		resault = pMaxPri->queue->extract();
 		if (pMaxPri->queue->isEmpty()) {//take last value with max priority
-			delete pMaxPri;//almost smart pointer
+			//delete pMaxPri;//almost smart pointer
 		}
 		
 	}

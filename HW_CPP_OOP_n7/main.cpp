@@ -24,7 +24,7 @@ int main() {
 	{
 		//testQueue(iter, range);
 		//testQueueRing(iter, range);
-		testQueuePriority(iter, range);
+		//testQueuePriority(iter, range);
 	}
 	
 	pause("End program! ");
