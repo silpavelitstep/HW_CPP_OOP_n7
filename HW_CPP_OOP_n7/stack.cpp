@@ -128,3 +128,16 @@ StackListStack::Elem::~Elem() {
 	delete stack;
 	
 }
+int StackListStack::push(int value) {
+	if (cnt == 0) {//empty list (empty stack)
+		head = new Elem(size);
+	}
+	head->stack->push(value);
+	//after push inner stack can be fill
+	if (head->stack->count() == size) {
+		Elem* temp = head;
+		head=new Elem(size);
+		head->next = temp;
+	}
+
+}

@@ -45,7 +45,7 @@ class StackListStack {
 		~Elem();
 	};
 	Elem* head;
-	int cnt;//count elem in list(stack)
+	int cnt;//count elems in all inner stacks
 	int size;
 public:
 	StackListStack(int);//send size of any inner stack
