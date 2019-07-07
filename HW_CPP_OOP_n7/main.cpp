@@ -16,6 +16,7 @@ int queuePriority(int, int);
 void testQueuePriority(int, int);
 void testStack(int, int);
 int stack(int, int);
+int stackList(int, int);
 
 int main() {
 	// max 500 000 int numbers using for test
@@ -24,10 +25,12 @@ int main() {
 	const int iter = 5000000;//count exe add+extract
 	const int range = 100;//random int from 0 to 9
 	{
-		testQueue(iter, range);
+		//testQueue(iter, range);
 		//testQueueRing(iter, range);
-		testQueuePriority(iter, range);
-		testStack(iter, range);
+		//testQueuePriority(iter, range);
+		//testStack(iter, range);
+		StackListStack sls(1000);
+		
 		
 		
 	}
@@ -167,4 +170,26 @@ void testStack(int iter, int range) {
 			+ stack(iter, range)
 			 + stack(iter, range)) / 3
 		<< " ms" << endl;
+	cout << "StackList: "
+		<< (stackList(iter, range)
+			+ stackList(iter, range)
+			+ stackList(iter, range)) / 3
+		<< " ms" << endl;
+
+}
+int stackList(int iter, int range) {
+	int startTime = clock();
+	StackList st;
+	for (int ir = 1; ir <= iter; ir++) {
+		if (rand() % 2)
+			st.push(rand() % range);
+		else {
+			//st.show();
+			st.pop();
+			//st.show();
+		}
+	}
+	
+	return clock() - startTime;
+
 }

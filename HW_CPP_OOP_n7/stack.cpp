@@ -1,15 +1,17 @@
 #include "stack.h"
 #include <iostream>
 using namespace std;
+//stack
 Stack::Stack(int size) {//size - size of inner array
 	array = new int[size];
 	this->size = size;
 	pos = -1;//if array is empty
-	//cout << "new Stack\t" << (int)this << endl;
+	cout << "new Stack\t" << (int)this << endl;//--------------
 }
 Stack::~Stack() {
+	cout << "free Stack\t" << (int)this << endl;//-------------
 	delete[] array;
-	//cout << "free Stack\t" << (int)this << endl;
+	
 }
 int Stack::push(int value) {
 	if (pos < size)
@@ -37,4 +39,92 @@ int Stack::count() {
 }
 bool Stack::isEmpty() {
 	return pos == -1;
+}
+//stack base linked list
+StackList::StackList() {
+	head = 0;//empty list
+	cnt = 0;//empty list
+	//cout << "new StackList\t" << (int)this << endl;
+}
+StackList::~StackList() {
+	Elem* temp=head;
+	while (head) {
+		temp = head->next;
+		delete head;
+		head = temp;
+	}
+	//cout << "free StackList\t" << (int)this << endl;
+}
+StackList::Elem::Elem(int value, Elem *next ) {
+	this->value = value;
+	this->next = next;
+	//cout << "new StackList::Elem\t" << (int)this << endl;
+}
+StackList::Elem::~Elem() {
+	//cout << "free StackList::Elem\t" << (int)this << endl;
+}
+int StackList::push(int value) {
+	head = new Elem(value,head);
+	cnt++;
+	return value;
+}
+int StackList::pop() {
+	if (head) {
+		Elem* temp = head->next;//save next elem
+		int resault = head->value;//save value
+		delete head;//free memory
+		head = temp;
+		cnt--;
+		return resault;
+	}
+	else
+		return -1;
+}
+int StackList::count() {
+	return cnt;
+}
+void StackList::show() {
+	cout << " [";
+	if (cnt) {
+		Elem* current = head;
+		while (current) {
+			cout << current->value << ' ';
+			current = current->next;
+		}
+}
+	else
+		cout << "empty stack";
+	cout << "] ";
+	cout << "count= " << count() << endl;
+
+}
+bool StackList::isEmpty() {
+	return cnt == 0;
+}
+//stack base linked list base stack
+StackListStack::StackListStack(int size) {
+	head = 0;
+	cnt = 0;
+	this->size = size;//
+	cout << "new StackListStack\t" << (int)this << endl;//-------------
+}
+StackListStack::~StackListStack() {
+	cout << "free StackListStack\t" << (int)this << endl;//-------------
+	Elem* temp = head;
+	while (head) {
+		temp = head->next;
+		delete head;
+		head = temp;
+	}
+	
+}
+StackListStack::Elem::Elem(int size) {
+	stack = new Stack(size);
+	next = 0;
+	cout << "new StackListStack::Elem\t" << (int)this << endl;//----
+}
+StackListStack::Elem::~Elem() {
+	cout << "free StackListStack::Elem\t" << (int)this << endl;//---
+	delete stack;
+	
 }
